@@ -20,6 +20,7 @@ app.use(fileUpload({
 //Routes
 app.use('/user', require('./routers/UserRouter'))
 app.use('/formdata', require('./routers/FormDataRouter'))
+app.use('/api', require('./routers/Upload'))
 
 const PORT = process.env.PORT || 5001 
 

@@ -32,7 +32,7 @@ const FormDataCtrl = {
         try {
             const {
                 message, 
-                image
+                
             } = req.body;
             
             if(!message) return res.status(400),json({msg: "No message"});
@@ -56,12 +56,12 @@ const FormDataCtrl = {
             
             const payload = IV.toString('hex') + encrypted + auth_tag;
             
-            const upayload64 = Buffer.from(payload, 'hex').toString('base64');
+            const payload64 = Buffer.from(payload, 'hex').toString('base64');
             console.log(payload64);
             
             const newFormData = new FormData({
-                message:upayload64,
-                image
+                message:payload64,
+                
             })
 
             await newFormData.save()
@@ -79,6 +79,8 @@ const FormDataCtrl = {
             } = req.body;
             
             if(!message) return res.status(400),json({msg: "No message"});
+            if(!image) return res.status(400),json({msg: "No image uploaded."});
+
             const IV = crypto.randomBytes(16);
             const cipher = crypto.createCipheriv(
               'aes-256-gcm',
@@ -99,11 +101,11 @@ const FormDataCtrl = {
             
             const payload = IV.toString('hex') + encrypted + auth_tag;
             
-            const mpayload64 = Buffer.from(payload, 'hex').toString('base64');
+            const payload64 = Buffer.from(payload, 'hex').toString('base64');
             console.log(payload64);
             
             const newFormData = new FormData({
-                message:mpayload64,
+                message:payload64,
                 image
             })
             
